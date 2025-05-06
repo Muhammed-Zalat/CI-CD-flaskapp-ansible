@@ -1,0 +1,34 @@
+- name: Bootstrap and Deploy dockerized flask app
+  hosts: web_server
+  become: true
+
+  tasks:
+    - name: Ensure python is installed on the target server
+      raw: yum install -y python3
+      changed_when: false
+    
+    - name: Ensure Docker is installed
+      yum:
+        name: docker.io
+        state: present
+      notify: Start Docker
+
+    - name: Pull image from DockerHub
+      docker_image:
+        name: muhammedzalat/flaskapp
+        source: pull
+
+    - name: Run docker container
+      docker_container:
+        name: flaskapp
+        image: muhammedzalat/flaskapp
+        state: started
+        recreate: no
+        ports:
+          - "5000:5000"
+  handlers:
+    - name: Start Docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
