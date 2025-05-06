@@ -8,3 +8,4 @@ devops-docker-cicd/
 │   └── playbook.yml
 ├── Jenkinsfile
 └── README.md
+|__ project-tree
