@@ -1,0 +1,10 @@
+devops-docker-cicd/
+├── app/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── Dockerfile
+├── ansible/
+│   ├── inventory
+│   └── playbook.yml
+├── Jenkinsfile
+└── README.md
