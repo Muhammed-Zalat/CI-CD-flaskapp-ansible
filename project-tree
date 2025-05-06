@@ -1,4 +1,4 @@
-devops-docker-cicd/
+CI-CD-flaskapp-ansible/
 ├── app/
 │   ├── app.py
 │   ├── requirements.txt
