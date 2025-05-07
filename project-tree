@@ -7,5 +7,6 @@ CI-CD-flaskapp-ansible/
 │   ├── inventory
 │   └── playbook.yml
 ├── Jenkinsfile
-└── README.md
-|__ project-tree
+├── Dockerfile-jenkins
+├── README.md
+└── project-tree
