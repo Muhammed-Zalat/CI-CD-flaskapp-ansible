@@ -11,7 +11,12 @@
       yum:
         name: docker-ce
         state: present
-      notify: Start Docker
+  
+    - name: Ensure Docker service is running and enabled
+      service:
+        name: docker
+        state: started
+        enabled: true
 
     - name: Pull image from DockerHub
       docker_image:
@@ -26,9 +31,3 @@
         recreate: no
         ports:
           - "5000:5000"
-  handlers:
-    - name: Start Docker
-      service:
-        name: docker
-        state: started
-        enabled: yes
