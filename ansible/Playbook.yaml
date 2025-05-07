@@ -9,7 +9,7 @@
     
     - name: Ensure Docker is installed
       yum:
-        name: docker.io
+        name: docker-ce
         state: present
       notify: Start Docker
 
