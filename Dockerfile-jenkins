@@ -1,0 +1,19 @@
+FROM jenkins/jenkins:lts
+
+USER root
+
+# Install Docker and Ansible via apt
+RUN apt-get update && \
+    apt-get install -y \
+    docker.io \
+    ansible \
+    && rm -rf /var/lib/apt/lists/*
+
+# Add jenkins user to docker group
+RUN usermod -aG docker jenkins
+
+# Verify installations
+RUN docker --version && \
+    ansible-playbook --version
+
+USER jenkins
