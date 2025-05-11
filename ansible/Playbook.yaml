@@ -11,16 +11,37 @@
       yum:
         name: docker-ce
         state: present
-  
+
     - name: Ensure Docker service is running and enabled
       service:
         name: docker
         state: started
         enabled: true
 
+    - name: Stop the old container if exists
+      docker_container:
+        name: flaskapp
+        state: stopped
+        force_kill: yes
+      ignore_errors: yes
+
+    - name: Remove the old container if exists
+      docker_container:
+        name: flaskapp
+        state: absent
+      ignore_errors: yes
+
+    - name: Delete the old image if exists
+      docker_image:
+        name: muhammedzalat/flaskapp
+        tag: latest
+        state: absent
+      ignore_errors: yes
+
     - name: Pull image from DockerHub
       docker_image:
         name: muhammedzalat/flaskapp
+        tag: latest
         source: pull
 
     - name: Run docker container
