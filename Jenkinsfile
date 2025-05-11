@@ -6,6 +6,11 @@ pipeline {
     }
 
     stages {
+	stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
         stage('Clone Repository') {
             steps {
                 git 'https://github.com/Muhammed-Zalat/CI-CD-flaskapp-ansible.git'
@@ -15,7 +20,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 dir('app') {
-                    sh 'docker build -t $DOCKER_IMAGE:latest .'
+		    sh 'docker rmi muhammedzalat/flaskapp:latest || true'
+                    sh 'docker build --no-cache -t $DOCKER_IMAGE:latest .'
                 }
             }
         }
