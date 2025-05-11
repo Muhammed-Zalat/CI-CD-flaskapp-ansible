@@ -28,6 +28,6 @@
         name: flaskapp
         image: muhammedzalat/flaskapp
         state: started
-        recreate: no
+        recreate: yes
         ports:
           - "5000:5000"
