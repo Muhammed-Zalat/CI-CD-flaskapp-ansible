@@ -6,11 +6,12 @@ pipeline {
     }
 
     stages {
-	stage('Clean Workspace') {
+        stage('Clean Workspace') {
             steps {
                 cleanWs()
             }
         }
+
         stage('Clone Repository') {
             steps {
                 git 'https://github.com/Muhammed-Zalat/CI-CD-flaskapp-ansible.git'
@@ -20,7 +21,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 dir('app') {
-		    sh 'docker rmi muhammedzalat/flaskapp:latest || true'
+                    sh 'docker rmi muhammedzalat/flaskapp:latest || true'
                     sh 'docker build --no-cache -t $DOCKER_IMAGE:latest .'
                 }
             }
@@ -37,8 +38,10 @@ pipeline {
 
         stage('Deploy with Ansible') {
             steps {
-                dir('ansible') {
-                    sh 'ansible-playbook -i inventory Playbook.yaml'
+                withCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh-key', keyFileVariable: 'ANSIBLE_KEY')]) {
+                    dir('ansible') {
+                        sh 'ansible-playbook -i inventory Playbook.yaml'
+                    }
                 }
             }
         }

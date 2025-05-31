@@ -2,7 +2,6 @@
 flaskapp ansible_host=192.168.230.128
 
 [web_server:vars]
-ansible_user=zalat
 ansible_connection=ssh
-ansible_ssh_private_key_file=/var/jenkins_home/key2
+ansible_ssh_private_key_file={{ lookup('env', 'ANSIBLE_KEY') }}
 ansible_become=true
