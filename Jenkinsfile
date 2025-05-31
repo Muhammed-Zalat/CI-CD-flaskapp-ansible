@@ -40,7 +40,7 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh-key', keyFileVariable: 'ANSIBLE_KEY')]) {
                     dir('ansible') {
-                        sh 'ansible-playbook -i inventory Playbook.yaml'
+                        sh 'ansible-playbook -i inventory Playbook.yaml -v'
                     }
                 }
             }
