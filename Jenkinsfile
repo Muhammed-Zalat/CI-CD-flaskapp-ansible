@@ -40,7 +40,8 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh-key', keyFileVariable: 'ANSIBLE_KEY')]) {
                     dir('ansible') {
-                        sh 'ansible-playbook -i inventory.ini Playbook.yaml -vvv'
+                        sh 'ansible -i inventory.ini all -m ping'
+                        //sh 'ansible-playbook -i inventory.ini Playbook.yaml -vvv'
                     }
                 }
             }
