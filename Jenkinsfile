@@ -39,14 +39,14 @@ pipeline {
         stage('Deploy with Ansible') {
             steps {
                 sshagent(credentials: ['ansible-ssh-key']) {
-
-                //withCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh-key', keyFileVariable: 'ANSIBLE_KEY')]) {
                     dir('ansible') {
-                        sh 'ansible-playbook -i inventory.ini Playbook.yaml -vvv'
+                        sh '''
+                            ANSIBLE_HOST_KEY_CHECKING=False \
+                            ansible-playbook -i inventory.ini Playbook.yaml -vvv
+                        '''
                     }
                 }
             }
         }
     }
 }
-
