@@ -38,7 +38,9 @@ pipeline {
 
         stage('Deploy with Ansible') {
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh-key', keyFileVariable: 'ANSIBLE_KEY')]) {
+                sshagent(credentials: ['ansible-ssh-key']) {
+
+                //withCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh-key', keyFileVariable: 'ANSIBLE_KEY')]) {
                     dir('ansible') {
                         sh 'ansible-playbook -i inventory.ini Playbook.yaml -vvv'
                     }
