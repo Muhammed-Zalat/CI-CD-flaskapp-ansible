@@ -38,7 +38,7 @@ pipeline {
 
         stage('Deploy with Ansible') {
             steps {
-                //sshagent(credentials: ['ansible-ssh-key']) {
+                sshagent(credentials: ['ansible-ssh-key']) {
                     dir('ansible') {
                         sh '''
                             ANSIBLE_HOST_KEY_CHECKING=False \
